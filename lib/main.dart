@@ -5,22 +5,27 @@ import 'firebase_options.dart';
 
 
 void main() async{
+
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+        apiKey: "AIzaSyBx_8W6uz-8F6U5mlCQxIak08cERst3nXc",
+        appId: "1:522582271094:android:7dd8db1ead7205d941ab57",
+        messagingSenderId: "522582271094",
+        projectId: "fir-6289e")
+  );
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-
-      home: SplashScreen(),
+      debugShowCheckedModeBanner: false,
+      home: const SplashScreen(),
     );
   }
 }
-
