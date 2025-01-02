@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "522582271094",
+    "project_id": "fir-6289e",
+    "storage_bucket": "fir-6289e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522582271094:android:8d68c0f1cb33405841ab57",
+        "android_client_info": {
+          "package_name": "com.novakode.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx_8W6uz-8F6U5mlCQxIak08cERst3nXc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:522582271094:android:7dd8db1ead7205d941ab57",
+        "android_client_info": {
+          "package_name": "com.novakode.firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBx_8W6uz-8F6U5mlCQxIak08cERst3nXc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
