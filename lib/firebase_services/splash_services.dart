@@ -8,7 +8,7 @@ class SplashServices {
   void isLogin(BuildContext context) {
     Timer(const Duration(seconds: 3), () {
 
-Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
     });
   }
 }
