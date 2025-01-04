@@ -1,3 +1,4 @@
+import 'package:firebase/widgets/round_button.dart';
 import 'package:flutter/material.dart';
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -7,6 +8,8 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  final emailController = TextEditingController()
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,8 +17,10 @@ class _LoginScreenState extends State<LoginScreen> {
         title: Text('Login Screen'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-
+        RoundButton(title: 'Login' ,onTap: (){},)
         ],
       ),
     );
