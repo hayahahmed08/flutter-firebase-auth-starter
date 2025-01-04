@@ -9,8 +9,14 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
-  final emailController = TextEditingController()
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   @override
+  void dispose (){
+    super.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -20,6 +26,22 @@ class _LoginScreenState extends State<LoginScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          TextFormField(
+            controller: emailController,
+            decoration: const InputDecoration(
+              hintText: 'Email',
+              helperText: 'abc@example.com',
+                prefixIcon: Icon(Icons.alternate_email)
+            )
+          ),
+          TextFormField(
+              controller: passwordController,
+              decoration: InputDecoration(
+                  hintText: 'Password',
+                  helperText: '******',
+
+              )
+          ),
         RoundButton(title: 'Login' ,onTap: (){},)
         ],
       ),
