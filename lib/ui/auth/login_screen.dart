@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       obscureText: true,
                       decoration: InputDecoration(
                         hintText: 'Password',
-                        prefixIcon: Icon(Icons.lock),
+                        prefixIcon: Icon(Icons.lock_open),
                       ),
                       validator: (value) {
                         if (value!.isEmpty) {
