@@ -1,5 +1,7 @@
+import 'package:firebase/ui/signup_screen.dart';
 import 'package:firebase/widgets/round_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -20,9 +22,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget build(BuildContext context) {
-    return SafeArea(
+    return WillPopScope(onWillPop: ()async{
+      SystemNavigator.pop();
+      return true;
+    },child:  SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.deepPurple,
           title: const Center(
               child: Text(
@@ -81,11 +87,22 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               SizedBox(
                 height: 20,
-              ),-
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text("Don't have an account?"),
+                  TextButton(onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => SignupScreen()));
+
+                  }, child: Text('Sign up'))
+                ],
+              )
             ],
           ),
         ),
       ),
+    )
     );
   }
 }
