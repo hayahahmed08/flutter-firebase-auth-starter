@@ -4,8 +4,8 @@ class Utils {
 
   void toastMessage(String message){
     Fluttertoast.showToast(
-        msg: message,
         toastLength: Toast.LENGTH_SHORT,
+        msg: message,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
         backgroundColor: Colors.red,

@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/utils.dart';
+
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
@@ -12,25 +14,52 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  bool loading = false;
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
   @override
   void dispose() {
-    super.dispose();
     emailController.dispose();
     passwordController.dispose();
+    super.dispose();
   }
 
+  void signup() {
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        loading = true;
+      });
+      _auth
+          .createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      )
+          .then((value) {
+        setState(() {
+          loading = false;
+        });
+        Utils().toastMessage('Signup Successful');
+      }).onError((error, stackTrace) {
+        Utils().toastMessage(error.toString());
+        setState(() {
+          loading = false;
+        });
+      });
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.deepPurple,
-          title: Text(
-            '                Sign up',
+          title: const Text(
+            'Sign up',
             style: TextStyle(color: Colors.white),
           ),
         ),
@@ -47,9 +76,10 @@ class _SignupScreenState extends State<SignupScreen> {
                     TextFormField(
                       controller: emailController,
                       decoration: const InputDecoration(
-                          hintText: 'Email',
-                          helperText: '  abc@example.com',
-                          prefixIcon: Icon(Icons.alternate_email)),
+                        hintText: 'Email',
+                        helperText: 'abc@example.com',
+                        prefixIcon: Icon(Icons.alternate_email),
+                      ),
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Enter email';
@@ -60,7 +90,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     TextFormField(
                       controller: passwordController,
                       obscureText: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: 'Password',
                         prefixIcon: Icon(Icons.lock_open),
                       ),
@@ -74,40 +104,30 @@ class _SignupScreenState extends State<SignupScreen> {
                   ],
                 ),
               ),
-              SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               RoundButton(
                 title: 'Sign up',
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    _auth.createUserWithEmailAndPassword(
-                        email: emailController.text.toString(),
-                        password: passwordController.text.toString()).then((value){
-
-                    }).onError((error,stackTrace){
-
-                  });
-                  }
-                },
+                onTap: signup,
+                loading: loading, // Assuming `RoundButton` has a `loading` property
               ),
-              SizedBox(
-                height: 20,
-              ),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Already have an account?"),
+                  const Text("Already have an account?"),
                   TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LoginScreen()));
-                      },
-                      child: Text('Login'))
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text('Login'),
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),
