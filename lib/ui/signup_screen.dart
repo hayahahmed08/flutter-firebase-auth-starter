@@ -16,7 +16,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   void dispose() {
     super.dispose();
@@ -83,7 +83,11 @@ class _SignupScreenState extends State<SignupScreen> {
                   if (_formKey.currentState!.validate()) {
                     _auth.createUserWithEmailAndPassword(
                         email: emailController.text.toString(),
-                        password: passwordController.text.toString());
+                        password: passwordController.text.toString()).then((value){
+
+                    }).onError((error,stackTrace){
+
+                  });
                   }
                 },
               ),
