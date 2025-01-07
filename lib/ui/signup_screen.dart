@@ -81,7 +81,9 @@ class _SignupScreenState extends State<SignupScreen> {
                 title: 'Sign up',
                 onTap: () {
                   if (_formKey.currentState!.validate()) {
-                    _auth.createUserWithEmailAndPassword(email: emailController.text.toString(), password: passwordController.text.toString());
+                    _auth.createUserWithEmailAndPassword(
+                        email: emailController.text.toString(),
+                        password: passwordController.text.toString());
                   }
                 },
               ),
@@ -92,10 +94,14 @@ class _SignupScreenState extends State<SignupScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text("Already have an account?"),
-                  TextButton(onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
-
-                  }, child: Text('Login'))
+                  TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()));
+                      },
+                      child: Text('Login'))
                 ],
               )
             ],
@@ -105,5 +111,3 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 }
-
-
