@@ -1,3 +1,4 @@
+import 'package:firebase/ui/posts/post_screen.dart';
 import 'package:firebase/ui/signup_screen.dart';
 import 'package:firebase/utils/utils.dart';
 import 'package:firebase/widgets/round_button.dart';
@@ -13,6 +14,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  bool loading = false;
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -31,12 +33,17 @@ class _LoginScreenState extends State<LoginScreen> {
             email: emailController.text.toString(),
             password: passwordController.text.toString())
         .then((value) {
-          Utils().toastMessage(value.user!.email.toString());
-    })
-        .onError((error, stackTrace) {
-          debugPrint(error.toString());
+      Utils().toastMessage(value.user!.email.toString());
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => PostScreen()));
+    }).onError((error, stackTrace) {
+      debugPrint(error.toString());
       Utils().toastMessage(error.toString());
+      setState(() {
+        loading = false;
+      });
     });
+
   }
 
   Widget build(BuildContext context) {
@@ -101,6 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   RoundButton(
                     title: 'login',
+                    loading: loading,
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
                         login();
