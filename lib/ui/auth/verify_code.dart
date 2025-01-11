@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 class VerifyCode extends StatefulWidget {
-  String verificationId ;
-  const VerifyCode({super.key});
-
+  final verificationId ;
+  const VerifyCode({super.key, required this.verificationId});
   @override
   State<VerifyCode> createState() => _VerifyCodeState();
 }
 
 class _VerifyCodeState extends State<VerifyCode> {
-  String verificationId ;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
