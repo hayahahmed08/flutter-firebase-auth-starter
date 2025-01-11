@@ -1,3 +1,4 @@
+import 'package:firebase/ui/auth/verify_code.dart';
 import 'package:firebase/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase/widgets/round_button.dart';
@@ -29,7 +30,7 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
             TextFormField(
               controller: phonenumbercontroller,
               decoration: const InputDecoration(
-                  hintText: '800‑555‑0199', prefixIcon: Icon(Icons.phone)),
+                  hintText: '+16505553439', prefixIcon: Icon(Icons.phone)),
             ),
             SizedBox(
               height: 70,
@@ -39,11 +40,20 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
               onTap: () {
                 auth.verifyPhoneNumber(
                     phoneNumber: phonenumbercontroller.text,
-                    verificationCompleted: (_){}, verificationFailed: (e){
+                    verificationCompleted: (_) {
+
+                    },
+                    verificationFailed: (e) {
                       Utils().toastMessage(e.toString());
-                }, codeSent: (String verification, int? token){}, codeAutoRetrievalTimeout: (e) {
-                  Utils().toastMessage(e.toString());
-                });
+                    },
+
+                    //this verification id will be taken from the user then we will combine to & give to server to process the registration
+                    codeSent: (String verificationId, int? token) {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyCode()));
+                    },
+                    codeAutoRetrievalTimeout: (e) {
+                      Utils().toastMessage(e.toString());
+                    });
               },
             ),
           ],
