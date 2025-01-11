@@ -12,6 +12,7 @@ class LoginWithPhoneNumber extends StatefulWidget {
 }
 
 class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
+  bool loading = false;
   final phonenumbercontroller = TextEditingController();
   final auth = FirebaseAuth.instance;
   @override
@@ -29,6 +30,7 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
             ),
             TextFormField(
               controller: phonenumbercontroller,
+              keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                   hintText: '+16505553439', prefixIcon: Icon(Icons.phone)),
             ),
@@ -37,11 +39,17 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
             ),
             RoundButton(
               title: 'login',
+              loading: loading,
               onTap: () {
+                setState(() {
+                  loading = true;
+                });
                 auth.verifyPhoneNumber(
                     phoneNumber: phonenumbercontroller.text,
                     verificationCompleted: (_) {
-
+                      setState(() {
+                        loading = false;
+                      });
                     },
                     verificationFailed: (e) {
                       Utils().toastMessage(e.toString());
@@ -49,7 +57,12 @@ class _LoginWithPhoneNumberState extends State<LoginWithPhoneNumber> {
 
                     //this verification id will be taken from the user then we will combine to & give to server to process the registration
                     codeSent: (String verificationId, int? token) {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => VerifyCode()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => VerifyCode(
+                                    verificationId: verificationId,
+                                  )));
                     },
                     codeAutoRetrievalTimeout: (e) {
                       Utils().toastMessage(e.toString());
